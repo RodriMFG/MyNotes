@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>Animations</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="300" style="border:solid 1px;">
+    Your browser does not support canvas
+</canvas>
+<<script>
+    var canvas = document.getElementById("canvas");
+    var drawing = canvas.getContext("2d");
+    var T = 0;
+
+    window.onload = init();
+    function init()
+    {
+        window.requestAnimationFrame(animationLoop);
+    }
+
+    function animationLoop(timeStamp)
+    {
+        update();
+        draw();
+        window.requestAnimationFrame(animationLoop);
+    }
+
+    function update()
+    {
+        T += 1;
+    }
+
+
+    function draw()
+    {
+        drawing.clearRect(0, 0, canvas.width, canvas.height)
+        drawing.beginPath();
+        //arc function takes coord(,), radius, rot, arc length
+        drawing.arc(20+T, 20+T, 10, 0, 2*Math.PI);
+        drawing.stroke();
+    }
+</script>
+</body>
+</html>

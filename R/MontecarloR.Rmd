@@ -1,0 +1,261 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## Montecarlo Methods in R
+
+### Chapter 1: R
+
+#### Packages in R
+
+```{r}
+#library() function show the available packages
+library()
+```
+
+```{r}
+#Packages are installed with install.packages("package name")
+#Packages are called with the library function()
+library(combinat)
+library(datasets)
+library(MASS)
+library(coda)
+library(mcsm)
+```
+
+#### Objects
+
+```{r}
+#Function c() concatenates terms together, it can concatenate number
+#as well as other vectors
+a<-c(10, 20, 20, 10)
+#Function str() show the structure of an object
+a; str(a)
+```
+
+Decimal numbers should be encoded with a dot, character strings in
+quotes " ", and logical values with the character strings TRUE and
+FALSE. Missing values are encoded with the string NA.
+
+```{r}
+#Boolean operators for equality is ==
+a == 20
+```
+
+\> a[1] display the first element of a\
+b=a[2:4] build the numeric vector b of dimension 3 with elements 5.6, 1,
+4\
+\> d=a[c(1,3,5)] build the numeric vector d of dimension 3 with elements
+5, 1, -5\
+\> 2\*a multiply each element of a by 2 and display the result\
+\> b%%3 provides each element of b modulo 3\
+\> d%/%2.4 computes the integer division of each element of d by 2.4\
+\> e=3/d build the numeric vector e of dimension 3 and elements 3/5, 3,
+-3/5\
+\> log(d\*e) multiply the vectors d and e term by term and transform
+each term into its natural logarithm\
+\> sum(d) calculate the sum of d\
+\> length(d) display the length of d\
+\> t(d)e transpose d, the result is a row vector\
+\> t(d)%\*%e scalar product between the row vector t(b) and the column
+vector e with identical length\
+\> t(d)\*e elementwise product between two vectors with identical
+lengths\
+\> g=c(sqrt(2),log(10)) build the numeric vector g of dimension 2 and
+elements sqrt(2), log(10)\
+\> e[d==5] build the subvector of e that contains the components e[i]
+such that d[i]=5\
+\> a[-3] create the subvector of a that contains all components of a but
+the third.\
+\> is.vector(d) display the logical expression TRUE if a vector and
+FALSE else
+
+```{r}
+#Functions designed for vectors
+rm(a)
+a <- c(1, 2, 3)
+print("sample():")
+sample(a)
+print("permn():")
+permn(a)
+print("order():")
+order(a)
+print("sort():")
+sort(a, decreasing = T)
+```
+
+```{r}
+names(a) = NULL
+names(a)
+names(a) <- c("1", "Two", "Tres")
+names(a)
+```
+
+#### Classes: matrix, array, factor
+
+```{r}
+#seq function takes (from, to, by, length)
+x <- seq(0, 10, by=2)
+x
+x <- seq(1, 10, length.out=19)
+x
+```
+
+``` r
+> x=matrix(vec,nrow=n,ncol=p)
+```
+
+Creates an n x p matrix from a vector of dimension np.
+
+```{r}
+a <- c(1:12)
+m <- matrix(a, 3, 4, byrow=F)
+n <- matrix(a, 4, 3, byrow=T)
+
+m
+m[1,]
+n
+matrix(a, 5, 5)
+#Note that the vector can be of different size than np and it will
+#either be cut off or have to restart
+```
+
+
+#### Matrix manipulations
+
+```{r}
+#Term by termn multiplication
+m * m
+#Matrix product
+m %*% n
+#Vector from the diagonal
+diag(m)
+#It can also create a matrix with a given diagonal
+diag(1:5)
+#Product with the transpose
+crossprod(m, m)
+```
+
+\> x1=matrix(1:20,nrow=5) build the numeric matrix x1 of dimension 5 × 4
+with first row 1, 6, 11, 16\
+\> x2=matrix(1:20,nrow=5,byrow=T) build the numeric matrix x2 of \>
+dimension 5 × 4 with first row 1, 2, 3, 4\
+\> a=x3%*%x2 matrix summation of x2 and x3\
+\> x3=t(x2) transpose the matrix x2\
+\> b=x3%*%x2 matrix product between x2 and x3, with a check of the \>
+dimension compatibility\
+\> c=x1\*x2 term-by-term product between x1 and x2\
+\> dim(x1) display the dimensions of x1\
+\> b[,2] select the second column of b\
+\> b[c(3,4),] select the third and fourth rows of b\
+\> b[-2,] delete the second row of b\
+\> rbind(x1,x2) vertical merging of x1 and x2\
+\> cbind(x1,x2) horizontal merging of x1 and x2\
+\> apply(x1,1,sum) calculate the sum of each row of x1\
+\> as.matrix(1:10) turn the vector 1:10 into a 10 × 1 matrix\
+
+#### Factor
+
+It is a vector of integers used for discrete classification of the
+components of other vectors with the same length.
+
+\> state=c("tas","tas","sa","sa","wa") create a vector with five values\
+\> statef=factor(state) distinguish entries by group\
+\> levels(statef) give the groups\
+\> incomes=c(60,59,40,42,23) create a vector of incomes\
+\> tapply(incomes,statef,mean) average the incomes for each group\
+\> statef=factor(state, + levels=c("tas","sa","wa","yo")) define a new
+level with one more group than observed\
+\> table(statef) return statistics for all levels 
+
+#### Classes: list and data.frame
+
+A list is a collection of arbitrary objects known as components.
+
+```{r}
+a<-list(name_1=1,name_n="object_n")
+a$name_1
+a$name_n
+```
+
+Components have names associates with them. Lists can also takes other
+lists as components as well as any other R objects.
+
+```{r}
+li=list(num=1:5,y="color",a=T)
+li
+
+a=matrix(c(6,2,0,2,6,0,0,0,36),nrow=3)
+res=eigen(a,symmetric=T)
+names(res)
+res$values
+res$vectors
+
+a
+res$vec%*%diag(res$val)%*%t(res$vec)
+```
+
+#### data.frame
+
+A data frame is a list whose elements are possibly made of differing
+modes and attributes but have the same length.
+
+\> v1=sample(1:12,30,rep=T) simulate 30 independent uniform ranfom
+variables on {1,2,...,12}\
+\> v2=sample(LETTERS[1:10],30,rep=T) simulate 30 independent uniform
+random variables on {a, b, ...., j}\
+\> v3=runif(30) simulate 30 independent uniform random variables on [0,
+1]\
+\> v4=rnorm(30) simulate 30 independent realizations from a standard
+normal distribution\
+\> xx=data.frame(v1,v2,v3,v4) create a data frame\
+
+### Probability distributions  
+```{r}
+x <- rnorm(20)
+x
+print(" ")
+y <- 3*x + 5 + rnorm(20, sd=0.3)
+y
+
+reslm <- lm(y~x)
+summary(reslm)
+```
+
+### Statistics  
+```{r}
+#rnorm(n, mean=0, sd=1)
+x <- rnorm(20, 0, 0.5)
+x
+print("")
+var(x)
+sd(x)
+median(x)
+mean(x)
+quantile(x)
+print("")
+summary(x)
+print("")
+t.test(x)
+```
+```{r}
+x <- seq(-3,3,le=5)
+x
+y <- 2 + 4*x + rnorm(5)
+y
+a <- lm(y~x)
+a
+print("")
+summary(a)
+```
+
+### Graphing
+
+
+
+
+
+
+

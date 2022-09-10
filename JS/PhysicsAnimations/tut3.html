@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Animations</title>
+    </head>
+<body>
+    <input type="range" min"0" max="90" id="angle"></input>
+    <label for="angle">Angle</label><p>
+
+    <input type="range" min"0" max="30" id="speed"></input>
+    <label for="speed">Speed</label><p>
+
+    <input type="range" min"0" max="20" id="animation"></input>
+    <label for="animation">Animation Speed</label><p>
+
+    <input type="button" id="start" value="Start"></input><p>
+
+    <canvas id="canvas" width="800" height="400" style="border:solid 1px;">
+        Your browser does not support canvas
+    </canvas>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    var drawing = canvas.getContext("2d");
+    var T = 0;
+    var X0 = 0;
+    var Y0 = canvas.height;
+    var X = X0;
+    var Y = Y0;
+    var angle = document.getElementById("angle");
+    var speed = document.getElementById("speed");
+    var g = 0.5;
+    var run = false;
+    var start = document.getElementById("start");
+
+    start.addEventListener("click", toggle);
+
+    function toggle()
+    {
+        if(!run)
+        {
+            start.value = "Stop";
+        }
+        else
+        {
+            start.value = "Start";
+            X = X0;
+            Y = Y0;
+            T = 0.;
+        }
+        run = !run;
+    }
+
+    var oldTimeStamp = 0.;
+    var secondsPassed = 0.;
+    var animationSpeed = document.getElementById("animation");
+
+    window.onload = init();
+
+    function init()
+    {
+        window.requestAnimationFrame(animationLoop);
+    }
+
+    function animationLoop(timeStamp)
+    {
+        secondsPassed = (timeStamp - oldTimeStamp)/1000.;
+        oldTimeStamp = timeStamp;
+        update();
+        draw();
+        window.requestAnimationFrame(animationLoop);
+    }
+
+    function update()
+    {
+        if(run)
+        {
+            T += animationSpeed.value*secondsPassed;
+            X = speed.value*Math.cos(-angle.value*Math.PI/180.)*T + X0;
+            Y = 0.5*g*T*T + speed.value*Math.sin(-angle.value*Math.PI/180.)*T + Y0;
+        }
+    }
+
+
+    function draw()
+    {
+        drawing.clearRect(0, 0, canvas.width, canvas.height)
+
+        drawing.beginPath();
+        drawing.fillStyle = "green";
+        drawing.rect(0, canvas.height, canvas.width, -canvas.height+300);
+        drawing.fill();
+
+        drawing.beginPath();
+        drawing.fillStyle = "blue";
+        drawing.rect(0, -canvas.height+300, canvas.width, canvas.height);
+        drawing.fill();
+        //arc function takes coord(,), radius, rot, arc length
+        drawing.beginPath();
+        drawing.fillStyle = "black";
+        drawing.arc(X, Y, 10, 0, 2*Math.PI);
+        drawing.fill();
+
+        drawing.fillStyle = "white";
+        drawing.fillText("Angle: "+angle.value, 50, 80);
+        drawing.fillText("Speed: "+speed.value, 50, 90);
+        drawing.fillText("Animation Speed: "+animation.value, 50, 100);
+
+        drawing.beginPath();
+        drawing.moveTo(X0, Y0);
+        drawing.strokeStyle = "grey";
+        drawing.lineTo(X0 + 80*Math.cos(-angle.value*Math.PI/180.),
+Y0 + 80*Math.sin(-angle.value*Math.PI/180));
+        drawing.lineWidth = 40;
+        drawing.stroke();
+
+    }
+</script>
+
+</body>
+</html>

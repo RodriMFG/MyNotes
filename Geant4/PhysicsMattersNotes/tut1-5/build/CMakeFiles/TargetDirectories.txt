@@ -1,0 +1,4 @@
+/home/rodrimfg/Desktop/MyNotes/Geant4_files/notes/tut1-5/build/CMakeFiles/rebuild_cache.dir
+/home/rodrimfg/Desktop/MyNotes/Geant4_files/notes/tut1-5/build/CMakeFiles/Simulation.dir
+/home/rodrimfg/Desktop/MyNotes/Geant4_files/notes/tut1-5/build/CMakeFiles/edit_cache.dir
+/home/rodrimfg/Desktop/MyNotes/Geant4_files/notes/tut1-5/build/CMakeFiles/sim.dir

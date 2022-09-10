@@ -1,0 +1,4 @@
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/PhysicsMattersNotes/tut8-/build/CMakeFiles/rebuild_cache.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/PhysicsMattersNotes/tut8-/build/CMakeFiles/Simulation.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/PhysicsMattersNotes/tut8-/build/CMakeFiles/edit_cache.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/PhysicsMattersNotes/tut8-/build/CMakeFiles/sim.dir

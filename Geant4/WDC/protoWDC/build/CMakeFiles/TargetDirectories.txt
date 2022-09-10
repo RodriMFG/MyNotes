@@ -1,0 +1,4 @@
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/WDC/protoWDC/build/CMakeFiles/rebuild_cache.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/WDC/protoWDC/build/CMakeFiles/Simulation.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/WDC/protoWDC/build/CMakeFiles/edit_cache.dir
+/home/rodrimfg/Desktop/CNF22-WCD-SIM/WDC/protoWDC/build/CMakeFiles/sim.dir
