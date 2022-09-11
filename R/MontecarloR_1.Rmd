@@ -252,9 +252,57 @@ summary(a)
 ```
 
 ### Graphing
+```{r}
+par()
+```
+
+```{r}
+x <- rnorm(100, 0, 1)
+y <- rnorm(100, 1, 0.5)
+X <- matrix(c(x, y), 100)
+hist(X[,1])
+hist(X[,2])
+```
+```{r}
+x <- seq(0, 10, len=25)
+y <- x^2 + (1/10) * x * rnorm(25, 0, 2)
+plot(x, y, main = "x^2 plot with err")
+```
+
+### Functions  
+
+```
+name=function(arg1[=expr1],arg2[=expr2],...) {
+expression
+...
+expression
+value
+}
+```
+
+#### Example
+```{r}
+sqrnt = function(y) {
+  x=y/2
+  while (abs(x*x-y) > 1e-10) 
+    x=(x+y/x)/2
+  x
+}
+sqrnt(10)
+```
+The expressions used in a function rely on a syntax that is quite similar to
+those of other programming languages, with conditional statements such as  
+if (expres1) expres2 else expres3  
+where expres1 is a logical value, and loops such as  
+for (name in expres1) expres2  
+and  
+while (expres4) expres2  
 
 
-
+### The mcsm package
+```{r}
+demo(Chapter.1)
+```
 
 
 
