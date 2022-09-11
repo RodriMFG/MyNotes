@@ -1,0 +1,104 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## Random variable generation
+
+```{r}
+rm(list =ls())
+```
+
+```{r}
+library(combinat)
+library(datasets)
+library(MASS)
+library(coda)
+library(mcsm)
+```
+
+#### Uniform simulation
+
+```{r}
+# runif(N, min, max)
+a <- runif(10000, min = 2, max = 5)
+hist(a)
+```
+
+```{r}
+N = 10^4
+b <- runif(N)
+b1 = b[-N]
+b2 = b[-1]
+par(mfrow = c(1,3))
+hist(b)
+plot(b1, b2)
+acf(b)
+```
+
+We can change the seed for runif() by running set.seed(int) before the
+function.
+
+
+#### The inverse transform
+If X has density f and cdf F, we have:
+$$ 
+F(x) = \int_{-\infty}^x f(t) dt
+$$
+If $U = F(X)$ then U is a random variable distributed from a uniform $U(0, 1)$.  
+```{r}
+N = 10^4
+U = runif(N)
+X = -log(U)
+Y = rexp(N)
+par(mfrow=c(1,2))
+hist(X, main = "Exp from Uniform")
+hist(Y, main = "Exp from R")
+```  
+
+#### Transformation methods  
+When a distribution with density f is linked in a relatively simple way to
+another distribution that is easy to simulate, this relationship can often be exploited to construct an algorithm to simulate variables from f.  
+For example, to generate χ 26 random variables, we could
+use the R code  
+```{r}
+U = runif(3 * 10^4)
+U = matrix(U, nrow = 3)
+X = -log(U)
+X = 2 * apply(X, 2, sum)
+```
+
+#### Discrete distributions  
+Here is an R code that can be used to generate Poisson random
+variables for large values of lambda. The sequence t contains the integer values in the range around the mean.  
+```{r}
+N =  10^4; lambda = 100
+spread = 3*sqrt(lambda)
+t = round(seq(max(0, lambda - spread), lambda + spread, 1))
+prob = ppois(t, lambda)
+for (i in 1:N)
+{
+  u = runif(1)
+  X[i] = t[1] + sum(prob < u)
+}
+```
+
+#### Mixture representation  
+It is sometimes the case that a probability distribution can be naturally represented as a mixture distribution; that is, we can write it in the form
+$$
+f(x) = \int_Y g(x|y)p(y)dy \quad or \quad f(x) = \sum_{i\in Y}p_if_i(x) 
+$$  
+Example: If X is a negative binomial random variable, X ∼ N eg(n, p),
+then X has the mixture representation $X|y\~P(y) \quad and \quad Y\~G(n, \beta)$, where $\beta = (1-p)/p$.  
+```{r}
+N = 10^4
+n = 6; p = 0.3
+y = rgamma(N, n, rate = p/(1-p))
+x = rpois(N, y)
+hist(x, main="", freq=F, breaks = 40, col="grey")
+lines(1:50, dnbinom(1:50, n, p), lwd = 2, col="sienna")
+```
+
+
+

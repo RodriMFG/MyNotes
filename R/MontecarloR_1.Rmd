@@ -9,6 +9,10 @@ editor_options:
 ### Chapter 1: R
 
 #### Packages in R
+```{r}
+rm(list =ls())
+```
+
 
 ```{r}
 #library() function show the available packages

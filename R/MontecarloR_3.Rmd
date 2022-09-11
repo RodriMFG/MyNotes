@@ -1,0 +1,11 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## Monte Carlo Integration  
+```{r}
+rm(list =ls())
+```
+
