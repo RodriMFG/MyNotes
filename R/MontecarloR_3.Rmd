@@ -9,3 +9,57 @@ editor_options:
 rm(list =ls())
 ```
 
+```{r}
+library(combinat)
+library(datasets)
+library(MASS)
+library(coda)
+library(mcsm)
+```
+
+Let's compare the use of intagrate on the integral  
+$$
+\int_0^\infty x^{\lambda -1}exp(-x)dx
+$$
+
+```{r}
+ch = function(la)
+{
+  integrate( function(x){x^(la - 1) * exp(-x)} , 0, Inf)$val
+}
+plot(lgamma(seq(0.01, 10, le=100)), log(apply(as.matrix(seq(0.01, 10, le=100)), 1, ch)), xlab="log(integrate(f))", ylab=expression(log(Gamma(lambda))), pch=19, cex=.6)
+help("cummax")
+```
+
+#### Classical Monte Carlo integration  
+Example: Consider the function  
+$$
+h(x) = (cos(50x) + sin(20x))^2
+$$
+```{r}
+#function
+h <- function(x)
+{
+  (cos(50 * x) + sin(20 * x))^2
+}
+#plot
+par(mar=c(2,2,2,1), mfrow=c(2,1))
+curve(h, xlab = "Function", ylab = "", lwd = 2)
+
+#integration using integrate()
+integrate(h, 0, 1)
+
+#MC integration
+x <- h(runif(10^4))
+estint <- cumsum(x)/(1:10^4)
+esterr <- sqrt(cumsum((x-estint)^2))/(1:10^4)
+plot(estint, xlab="Mean and error range", type="l", lwd=2,ylim=mean(x)+20*c(-esterr[10^4], esterr[10^4]), ylab="")
+lines(estint+2*esterr, col="gold", lwd=2)
+lines(estint-2*esterr, col="gold", lwd=2)
+```
+
+
+
+
+
+
