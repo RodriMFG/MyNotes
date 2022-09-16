@@ -1,0 +1,10 @@
+/run/initialize
+/vis/open OGL
+/vis/viewer/set/viewpointVector 0 -10 2
+/vis/viewer/set/rotationStyle freeRotation
+/vis/drawVolume
+/vis/viewer/set/autoRefresh true
+/vis/scene/add/trajectories smooth
+/vis/scene/add/scale 5 m
+/vis/scene/add/eventID
+/vis/scene/endOfEventAction accumulate 10

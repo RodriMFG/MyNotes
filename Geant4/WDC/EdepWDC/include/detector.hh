@@ -1,0 +1,28 @@
+//Header file for function to detect the photons
+
+#ifndef DETECTOR_HH
+#define DETECTOR_HH
+
+#include "G4VSensitiveDetector.hh"
+#include "G4RunManager.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4PhysicsOrderedFreeVector.hh"
+
+#include "run.hh"
+
+//inherited from G4VSensitiveDetector
+class MySensitiveDetector : public G4VSensitiveDetector
+{
+public:
+    //construct and destruct
+    MySensitiveDetector(G4String);
+    ~MySensitiveDetector();
+
+private:
+    //main function for detection
+    virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
+
+    G4PhysicsOrderedFreeVector *quEff;
+};
+
+#endif

@@ -1,0 +1,23 @@
+/gun/momentumAmp 1.5 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 1.4 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 1.3 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 1.2 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 1.1 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 1 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 0.9 GeV
+/run/beamOn 50
+
+/gun/momentumAmp 0.8 GeV
+/run/beamOn 50
